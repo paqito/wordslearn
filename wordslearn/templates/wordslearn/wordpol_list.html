@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Polish Words List</h1>
+    {% if wordpol_list %}
+        <ul>
+            {% for word in wordpol_list %}
+                <li>
+                    <p> {{ word.word }} {{ word.word_type }} {{ word.date_of_add }} {{ word_list.some_data }} </p>
+                    <p> {{ word.display_engword }} </p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no words in the dictionary.</p>
+    {% endif %}
+{% endblock %}
