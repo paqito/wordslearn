@@ -7,7 +7,7 @@ import datetime
 # Create your views here.
 
 
-from wordslearn.forms import AddEnglishWordForm
+from wordslearn.forms import AddEnglishWordForm, AddPolishWordForm
 
 def index(request):
 	return render(request, 'index.html')
@@ -107,3 +107,49 @@ def add_english_word(request):
 	}
 
 	return render(request, 'wordslearn/new_eng_word.html', context)
+
+def add_polish_word(request):
+
+	word_instance = WordPol()
+	if request.method == 'POST':
+		# Create a form instance and populate it with data from the request (binding):
+		form = AddPolishWordForm(request.POST)
+
+		# Check if the form is valid:
+		if form.is_valid():
+			# process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+			word_instance.word = form.cleaned_data['word']
+			english_word = form.cleaned_data['english_word']
+			word_instance.word_type = form.cleaned_data['word_type']
+			word_instance.save()
+
+			# check if english_word already exists
+			existing_english_word = WordPol.objects.filter(word__exact=english_word)
+			if existing_english_word:
+				# exists
+				for word in existing_english_word:
+					# add m2m relation
+					word_instance.wordsEng.add(word)
+					word_instance.save()
+
+			else:
+				# must add english word
+				english_word_instance = WordEng(word=english_word)
+				english_word_instance.save()
+				english_word_instance.wordpol_set.add(word_instance)
+				english_word_instance.save()
+
+				# redirect to a new URL:
+				return HttpResponseRedirect(reverse('wordslearn:polishwords'))
+
+	# If this is a GET (or any other method) create the default form.
+	else:
+		# initial form creation request.
+		form = AddPolishWordForm()
+
+	context = {
+		'form' : form,
+		'word_instance' : word_instance
+	}
+
+	return render(request, 'wordslearn/new_pol_word.html', context)

@@ -8,5 +8,6 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('englishwords/', views.WordEngListView.as_view(), name='englishwords'),
     path('polishwords/', views.WordPolListView.as_view(), name='polishwords'),
-    path('addenglishword/', views.add_english_word, name="add-english-word")
+    path('addenglishword/', views.add_english_word, name="add-english-word"),
+    path('addpolishhword/', views.add_polish_word, name="add-polish-word")
 ]

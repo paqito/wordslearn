@@ -1,4 +1,5 @@
 from django.db import models
+from wordslearn import wordDefinitions
 
 # Create your models here.
 class Word(models.Model):
@@ -13,14 +14,8 @@ class Word(models.Model):
         return self.word
 
 class WordEng(Word):
-    WORD_TYPES = [
-        ('noun', 'Noun'),
-        ('verb', 'Verb'),
-        ('adjective', 'Adjective'),
-        ('adverb', 'Adverb'),
-        ('other', 'Other')]
 
-    word_type = models.CharField(max_length=30, choices=WORD_TYPES, help_text='Select type of word')
+    word_type = models.CharField(max_length=30, choices=wordDefinitions.ENG_WORD_TYPES, help_text='Select type of word')
 
     def __str__(self):
         return "English Word: " + self.word + " " + self.word_type
@@ -41,15 +36,9 @@ class WordEng(Word):
 
 
 class WordPol(Word):
-    WORD_TYPES = [
-        ('Noun', 'rzeczownik'),
-        ('Verb', 'czasownik'),
-        ('Adjective', 'przymiotnik'),
-        ('Adverb', 'przyslowek'),
-        ('Other', 'inne')]
 
     wordsEng = models.ManyToManyField(WordEng)
-    word_type = models.CharField(max_length=30, choices=WORD_TYPES, help_text='Select type of word')
+    word_type = models.CharField(max_length=30, choices=wordDefinitions.POL_WORD_TYPES, help_text='Select type of word')
 
     def __str__(self):
         return "Polish  Word: " + self.word + " " + self.word_type
