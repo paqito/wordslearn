@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from wordslearn.models import WordEng, WordPol
+from wordslearn.DataHelpers import WordsHelpers
 from django.urls import reverse
 from django.views import generic
 import datetime
@@ -9,8 +10,25 @@ import datetime
 
 from wordslearn.forms import AddEnglishWordForm, AddPolishWordForm
 
+words_in_database = WordsHelpers.getNumberOfWords()
+words_add_last_week = WordsHelpers.getNumberOfWords(7)
+
 def index(request):
-	return render(request, 'index.html')
+
+	# get 5 last eng and pol words
+	end_words = WordsHelpers.getLatestWord()
+	# end_words = WordEng.objects.order_by('-date_of_add')[:5]
+	pol_words = WordPol.objects.order_by('-date_of_add')[:5]
+
+	timedelta_words = WordsHelpers.getNumberOfWordsInDataRange()
+
+	context = {	'words_in_database' : words_in_database,
+				'words_add_last_week' : words_add_last_week,
+				'latest_eng_words': end_words,
+			   	'latest_pol_words': pol_words,
+			   	'timedelta_words' : timedelta_words}
+
+	return render(request, 'index.html', context)
 
 class WordEngListView(generic.ListView):
 	model = WordEng
@@ -153,3 +171,31 @@ def add_polish_word(request):
 	}
 
 	return render(request, 'wordslearn/new_pol_word.html', context)
+
+def detail(request, word_id):
+
+	word = None
+	print("get detail for {}".format(word_id))
+	try:
+		word = WordEng.objects.get(pk=word_id)
+	except WordEng.DoesNotExist:
+		print("WordEng does not exist")
+		# raise Http404("Word does not exist")
+
+	print("get detailes for word: {}".format(word))
+
+	context = {'word': word}
+	return render(request, 'wordslearn/detailed_view.html', context)
+
+def detailed_word_pol(request, word_id):
+
+	word = None
+	try:
+		word = WordPol.objects.get(pk=word_id)
+	except WordEng.DoesNotExist:
+		print("WordEng does not exist")
+
+	context = {'word': word}
+	return render(request, 'wordslearn/detailed_view.html', context)
+
+

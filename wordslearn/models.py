@@ -1,6 +1,12 @@
 from django.db import models
 from wordslearn import wordDefinitions
 
+from enum import Enum
+
+class LanguageChoice(Enum):
+    EN = "English"
+    PL = "Polish"
+
 # Create your models here.
 class Word(models.Model):
 
@@ -15,7 +21,7 @@ class Word(models.Model):
 
 class WordEng(Word):
 
-    word_type = models.CharField(max_length=30, choices=wordDefinitions.ENG_WORD_TYPES, help_text='Select type of word')
+    word_type = models.CharField(max_length=30, choices=wordDefinitions.ENG_WORD_TYPES, help_text='Select type of word', blank=True)
 
     def __str__(self):
         return "English Word: " + self.word + " " + self.word_type
@@ -26,6 +32,23 @@ class WordEng(Word):
 
     display_polword.short_description = 'Polish Word'
 
+
+    def Next(self):
+        try:
+            # return WordEng.objects.get(pk=self.pk+1)
+            next_issue = WordEng.objects.filter(pk__gt=self.pk).order_by('pk').first()
+            return next_issue
+        except:
+            return None
+
+    def Previous(self):
+        try:
+            # return WordEng.objects.get(pk=self.pk-1)
+            prev_issue = WordEng.objects.filter(pk__lt=self.pk).order_by('pk').first()
+            return prev_issue
+        except:
+
+            return None
 
     # def add_polish_word(self, pol_word):
     #     if pol_word not in self.wordpol_set.all():
@@ -38,7 +61,7 @@ class WordEng(Word):
 class WordPol(Word):
 
     wordsEng = models.ManyToManyField(WordEng)
-    word_type = models.CharField(max_length=30, choices=wordDefinitions.POL_WORD_TYPES, help_text='Select type of word')
+    word_type = models.CharField(max_length=30, choices=wordDefinitions.POL_WORD_TYPES, help_text='Select type of word', blank=True)
 
     def __str__(self):
         return "Polish  Word: " + self.word + " " + self.word_type

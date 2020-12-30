@@ -6,6 +6,7 @@ app_name = 'wordslearn'
 urlpatterns = [
     path('', views.index, name='index'),
     path('index/', views.index, name='index'),
+    path('<int:word_id>/', views.detail, name="detail"),
     path('englishwords/', views.WordEngListView.as_view(), name='englishwords'),
     path('polishwords/', views.WordPolListView.as_view(), name='polishwords'),
     path('addenglishword/', views.add_english_word, name="add-english-word"),

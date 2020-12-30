@@ -6,8 +6,9 @@
         <ul>
             {% for word in wordeng_list %}
                 <li>
-                    <p>{{ word.word }} {{ word.word_type }} {{ word.date_of_add }} {{ word_list.some_data }} </p>
+                    <p>{{ word.word }} Type: {{ word.word_type }} Added: {{ word.date_of_add }} {{ word_list.some_data }} {{word.id}}</p>
                     <p> {{ word.display_polword }}</p>
+                    <a href="{% url 'wordslearn:detail' word.id %}">Details of {{ word.word }}</a>
                 </li>
             {% endfor %}
         </ul>

@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Detailed view</h1>
+<table>
+    <tr>
+    <td>{% if word.Previous is not none %}
+            <a href="{% url 'wordslearn:detail' word.Previous.id %}"> PREVIOUS </a>
+        {% else %}
+            <a> PREVIOUS </a>
+        {% endif %}
+    </td>
+    <td>
+    {% if word  %}
+    <p>Detailed word info</p>
+    {{ word }}
+        {% if word.word %}
+        <p>{{ word.word }}</p>
+        {% endif %}
+        <p>{{word.id}}</p>
+        {% if word.word_type %}
+        <p>Type: {{ word.word_type }}</p>
+        {% endif %}
+        <p> Added: {{ word.date_of_add }}</p>
+        {% if word.some_data %}
+        <p> Data: {{ word_list.some_data }} </p>
+        {% endif %}
+    {% else %}
+        <p>Word does not exists in the database</p>
+    {% endif %}
+    </td>
+
+        <td>{% if word.Next is not none %}
+            <a href="{% url 'wordslearn:detail' word.Next.id %}"> NEXT </a>
+        {% else %}
+            <a> NEXT </a>
+        {% endif %}
+    </td>
+
+    </tr>
+</table>
+{% endblock %}

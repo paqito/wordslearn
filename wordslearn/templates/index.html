@@ -1,6 +1,41 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-	<h1> Hello to wordList!!! </h1>
-	<h1> Let's learn some words </h1>
+	<h1> Let's learn some words. {{ words_in_database }} words added. {{ words_add_last_week }} added last week. </h1>
+
+
+	{% if latest_eng_words %}
+		<h3> Latest english words </h3>
+		<p>
+		{% for word in latest_eng_words %}
+			<b>{{ word.word }}</b> : {{ word.display_polword}}</br>
+		{% endfor %}
+		</p>
+	{% else %}
+    	<p>No english words are available.</p>
+	{% endif %}
+
+	{% if latest_pol_words %}
+	<h3> Latest polish words </h3>
+		<p>
+		{% for word in latest_pol_words %}
+			<b>{{ word.word }}</b> : {{ word.display_engword}}</br>
+			{% endfor %}
+		</p>
+	{% else %}
+    	<p>No polish words are available.</p>
+	{% endif %}
+
+	{% if timedelta_words %}
+	<h3> Latest words added. </h3>
+		<p>
+			{% for word in  timedelta_words %}
+
+				<b> {{ forloop.counter }}: {{ word.word }}</b> : {{ word.display_engword}}</br>
+			{% endfor %}
+		</p>
+	{% else %}
+		<h3> No latest words.</h3>
+	{% endif%}
+
 {% endblock %}
