@@ -1,0 +1,47 @@
+Python commands:
+Install virtual env:
+pip install virtualenv
+py -m pip install --user virtualenv
+
+pip list
+
+Create virtual env:
+virtualenv env
+
+Activate virtual env:
+env\Scripts\activate
+
+python -m django -V
+
+python help(‘modules’)
+
+(env) D:\Programming\DjangoProjects\Words\words>pip freeze
+asgiref==3.2.7
+Django==3.0.4
+pytz==2020.1
+sqlparse==0.3.1
+
+
+Django:
+python manage.py runserver
+python manage.py runserver 8080
+
+python manage.py makemigrations polls
+# By running makemigrations, you’re telling Django that you’ve made some changes to your models
+
+python manage.py sqlmigrate polls 0001
+#The sqlmigrate command takes migration names and returns their SQL:
+
+Change your models (in models.py).
+Run python manage.py makemigrations to create migrations for those changes
+Run python manage.py migrate to apply those changes to the database.
+
+
+Deleting Database:
+
+Delete the sqlite database file (often db.sqlite3) in your django project folder (or wherever you placed it)
+Delete everything except __init__.py file from migration folder in all django apps (eg: rm */migrations/0*.py)
+Make changes in your models (models.py).
+Run the command python manage.py makemigrations or python3 manage.py makemigrations
+Then run the command python manage.py migrate.
+
