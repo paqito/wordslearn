@@ -1,0 +1,45 @@
+body {
+	background-color : rgb(240, 240, 240);
+}
+
+h1 {
+	color: navy;
+	margin-left: 20px;
+}
+
+h2 {
+	color: black;
+	margin-left: 20px;
+}
+
+/* main menu link */
+a.menu {
+    text-decoration: none;
+}
+a.menu:active {
+  color: blue;
+}
+a.menu:hover {
+  color: blue;
+}
+
+/* main menu table */
+table.menu {
+font-size: 18px;
+  width : 60%;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+th.menu {
+  padding: 10px;
+  text-align: center;
+  border: none;
+}
+
+tr.menu {
+  padding: 10px;
+  text-align: center;
+  border-right: solid 2px #f00;
+  border-left: solid 2px #f00;
+}
