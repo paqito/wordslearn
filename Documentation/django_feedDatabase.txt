@@ -6,6 +6,10 @@
 WordEng.objects.all().delete()
 WordPol.objects.all().delete()
 
+Coment This:
+views.py
+# words_in_database = WordsHelpers.getNumberOfWords()
+# words_add_last_week = WordsHelpers.getNumberOfWords(7)
 
 # clean previous database - delete DB file
 
@@ -27,3 +31,6 @@ Run python manage.py migrate
 # feed words
 python manage.py shell
 exec(open('feedData.py').read())
+
+# create super user
+python manage.py createsuperuser

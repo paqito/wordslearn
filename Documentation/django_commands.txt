@@ -33,8 +33,10 @@ python manage.py sqlmigrate polls 0001
 #The sqlmigrate command takes migration names and returns their SQL:
 
 Change your models (in models.py).
-Run python manage.py makemigrations to create migrations for those changes
-Run python manage.py migrate to apply those changes to the database.
+#to create migrations for those changes
+Run python manage.py makemigrations 
+#to apply those changes to the database.
+Run python manage.py migrate 
 
 
 Deleting Database:

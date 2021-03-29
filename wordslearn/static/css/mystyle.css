@@ -26,20 +26,30 @@ a.menu:hover {
 /* main menu table */
 table.menu {
 font-size: 18px;
-  width : 60%;
+  width : 70%;
   text-align: center;
   background-color: #f2f2f2;
 }
 
 th.menu {
-  padding: 10px;
+  padding: 20px;
   text-align: center;
   border: none;
 }
 
 tr.menu {
-  padding: 10px;
+  line-height: 18px;
+  padding: 1px;
   text-align: center;
   border-right: solid 2px #f00;
   border-left: solid 2px #f00;
+}
+
+a.listlink {
+    text-decoration: none;
+}
+
+th, td {
+  padding: 5px;
+  text-align: left;
 }

@@ -1,3 +1,7 @@
 acute	ostry
 burden	obciążenie
 caress	pieścić
+coerce	przymusić
+conceived	poczęte
+constraint	przymus
+constraint	wymuszenie

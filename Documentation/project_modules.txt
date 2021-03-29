@@ -1,0 +1,145 @@
+python -m pip install googletrans
+python -m pip install translate
+
+
+
+D:.
+│   .gitignore
+│   activeEnv.bat
+│   db.sqlite3
+│   db_backup.sqlite3
+│   feedData.py
+│   manage.py
+│   requirements.txt
+│
+├───.idea
+│   │   .gitignore
+│   │   misc.xml
+│   │   modules.xml
+│   │   vcs.xml
+│   │   words.iml
+│   │   workspace.xml
+│   │
+│   └───inspectionProfiles
+│           profiles_settings.xml
+│
+├───Backup database
+│       db1.sqlite3
+│       db_backup.sqlite3
+│       db_old_one.sqlite3
+│
+	# Project documentation
+├───Documentation
+│       django_commands.txt
+│       django_feedDatabase.txt
+│       git_commands.txt
+│       project_modules.txt
+│
+	# translation and file processing utilities
+├───utilities
+│   │   processfile_utility.py
+│   │   translate_utility.py
+│   │   __init__.py
+│   │
+│   └───__pycache__
+│           processfile_utility.cpython-38.pyc
+│           translate_utility.cpython-38.pyc
+│           __init__.cpython-38.pyc
+│
+├───words
+│   │   asgi.py
+│   │   settings.py
+│   │   urls.py
+│   │   wsgi.py
+│   │   __init__.py
+│   │
+│   └───__pycache__
+│           settings.cpython-38.pyc
+│           urls.cpython-38.pyc
+│           wsgi.cpython-38.pyc
+│           __init__.cpython-38.pyc
+│
+├───wordsData
+│   │   allWords.txt
+│   │   processFile.py
+│   │   translatorModule.py
+│   │   wordsEnglish — kopia (2).txt
+│   │   wordsEnglish.txt
+│   │   wordsEnglish1.txt
+│   │   __init__.py
+│   │
+│   └───__pycache__
+│           processFile.cpython-38.pyc
+│           translatorModule.cpython-38.pyc
+│           __init__.cpython-38.pyc
+│
+├───wordslearn
+│   │   admin.py
+│   │   apps.py
+│   │   feedDb.py
+│   │   forms.py
+│   │   models.py
+│   │   tests.py
+│   │   urls.py
+│   │   views.py
+│   │   wordDefinitions.py
+│   │   wordsUtilities.py
+│   │   __init__.py
+│   │
+│   ├───DataHelpers
+│   │   │   WordsHelpers.py
+│   │   │   __init__.py
+│   │   │
+│   │   └───__pycache__
+│   │           WordsHelpers.cpython-38.pyc
+│   │           __init__.cpython-38.pyc
+│   │
+│   ├───migrations
+│   │   │   0001_initial.py
+│   │   │   0002_auto_20201219_2258.py
+│   │   │   __init__.py
+│   │   │
+│   │   └───__pycache__
+│   │           0001_initial.cpython-38.pyc
+│   │           0002_auto_20201219_2258.cpython-38.pyc
+│   │           __init__.cpython-38.pyc
+│   │
+│   ├───migrations_oldOne
+│   │   │   0001_initial.py
+│   │   │   0002_auto_20200512_2202.py
+│   │   │   0003_auto_20200512_2254.py
+│   │   │   __init__.py
+│   │   │
+│   │   └───__pycache__
+│   │           0001_initial.cpython-38.pyc
+│   │           0002_auto_20200512_2202.cpython-38.pyc
+│   │           0003_auto_20200512_2254.cpython-38.pyc
+│   │           __init__.cpython-38.pyc
+│   │
+│   ├───static
+│   │   └───css
+│   │           mystyle.css
+│   │
+│   ├───templates
+│   │   │   base_generic.html
+│   │   │   index.html
+│   │   │
+│   │   └───wordslearn
+│   │           detailed_view.html
+│   │           new_eng_word.html
+│   │           new_eng_word_simple.html
+│   │           new_pol_word.html
+│   │           wordeng_list.html
+│   │           wordpol_list.html
+│   │
+│   └───__pycache__
+│           admin.cpython-38.pyc
+│           forms.cpython-38.pyc
+│           models.cpython-38.pyc
+│           urls.cpython-38.pyc
+│           views.cpython-38.pyc
+│           wordDefinitions.cpython-38.pyc
+│           __init__.cpython-38.pyc
+│
+└───__pycache__
+        feedData.cpython-38.pyc

@@ -1,0 +1,3 @@
+- detailed view from
+- synonym, antonym as relation to other words
+- split words in jjinja

@@ -3,41 +3,60 @@
 {% block content %}
 
 <h1>Detailed view</h1>
-<table>
+<table style="border:1px solid black;margin-left:auto;margin-right:auto;">
     <tr>
-    <td>{% if word.Previous is not none %}
-            <a href="{% url 'wordslearn:detail' word.Previous.id %}"> PREVIOUS </a>
+        <td>{% if word.Previous is not none %}
+                <a href="{% url 'wordslearn:detail' word.Previous.id %}"> PREVIOUS </a>
+            {% else %}
+                <a> PREVIOUS </a>cd ..
+            {% endif %}
+        </td>
+
+        <td>
+        {% if word  %}
+            <h1>
+            {% if word.word %}
+                {{ word.word }}
+            {% endif %}
+            {% if word.word_type %}
+                : type : {{ word.word_type }}
+            {% endif %}
+            </h1>
+
+
+            <h2> {{ word.display_translations }} </h2>
+
+
+
+            {% if word.definition %}
+            <h3>Definition:</h3>
+                <p> {{ word.definition }}</p>
+            {% endif %}
+
+            {% if word.synonym %}
+                <p>Synonyms: {{ word.synonym }}</p>
+            {% endif %}
+
+            {% if word.antonym %}
+                <p>Antonyms: {{ word.antonym }}</p>
+            {% endif %}
+
+                <p> Added: {{ word.date_of_add }}</p>
+            {% if word.some_data %}
+                <p> Data: {{ word_list.some_data }} </p>
+            {% endif %}
+            <p>{{word.id}}</p>
         {% else %}
-            <a> PREVIOUS </a>
+            <p>Word does not exists in the database</p>
         {% endif %}
-    </td>
-    <td>
-    {% if word  %}
-    <p>Detailed word info</p>
-    {{ word }}
-        {% if word.word %}
-        <p>{{ word.word }}</p>
-        {% endif %}
-        <p>{{word.id}}</p>
-        {% if word.word_type %}
-        <p>Type: {{ word.word_type }}</p>
-        {% endif %}
-        <p> Added: {{ word.date_of_add }}</p>
-        {% if word.some_data %}
-        <p> Data: {{ word_list.some_data }} </p>
-        {% endif %}
-    {% else %}
-        <p>Word does not exists in the database</p>
-    {% endif %}
-    </td>
+        </td>
 
         <td>{% if word.Next is not none %}
             <a href="{% url 'wordslearn:detail' word.Next.id %}"> NEXT </a>
         {% else %}
             <a> NEXT </a>
         {% endif %}
-    </td>
-
+        </td>
     </tr>
 </table>
 {% endblock %}

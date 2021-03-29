@@ -1,6 +1,7 @@
 from wordslearn.models import WordEng
 from wordslearn.models import WordPol
 from wordslearn.models import LanguageChoice
+from django.core.exceptions import ObjectDoesNotExist
 
 from datetime import datetime, timedelta
 
@@ -20,6 +21,20 @@ def getLatestWord(numOfWords=5):
     else:
         return None
 
+def getWordFromDb(word=None, languague = LanguageChoice.EN, type = None):
+
+    print("Check word in db word: {} type: {}".format(word, type))
+    if languague == LanguageChoice.EN:
+        # w = WordEng.objects.get(word=word)
+        try:
+            #TODO filter by type
+            w = WordEng.objects.get(word__exact=word, word_type=type)
+        except ObjectDoesNotExist:
+            return None
+        return w
+    else:
+        return None
+
 def getLatestWordAdded():
     pass
 
@@ -36,3 +51,6 @@ def getNumberOfWordsInDataRange(daysToSubstract=7, languague = LanguageChoice.EN
         words = WordPol.objects.filter(date_of_add__gt=starting_date)
 
     return words
+
+def getWords(languague = LanguageChoice.EN):
+    pass

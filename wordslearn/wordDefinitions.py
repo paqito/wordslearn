@@ -15,3 +15,15 @@ POL_WORD_TYPES = [
     ('Preposition', 'przyimek'),
     ('Conjunctions', 'spójnik'),
     ('Other', 'inne')]
+
+
+# translation from wordDetail to Module type
+wordType_conversion = {
+        'noun': 'Noun',
+        'verb': 'Verb',
+        'adjective': 'Adjective',
+        'adverb': 'Adverb',
+        'preposition': 'Preposition',
+        'Conjunctions': 'Conjunctions',
+        'other': 'Other'
+}

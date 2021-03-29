@@ -1,16 +1,24 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
   {% block title %}<title> Words </title>{% endblock %}
 </head>
 <body>
-{% block sidebar %}
-  	<a href="{% url 'wordslearn:index' %}">Start</a>
-    <a href="{% url 'wordslearn:englishwords' %}">All english words</a>
-    <a href="{% url 'wordslearn:polishwords' %}">All polish words</a>
-    <a href="{% url 'wordslearn:add-english-word' %}">Add english word</a>
-    <a href="{% url 'wordslearn:add-polish-word' %}">Add polish word</a>
 
+{% block sidebar %}
+    <table class="menu">
+        <tr class="menu">
+            <th class="menu"><a class="menu" href="{% url 'wordslearn:index' %}">START</a></th>
+            <th class="menu"><a class="menu" href="{% url 'wordslearn:englishwords' %}">ALL ENGLISH WORDS</a></th>
+            <th class="menu"><a class="menu" href="{% url 'wordslearn:polishwords' %}">ALL POLISH WORDS</a></th>
+            <th class="menu"><a class="menu" href="{% url 'wordslearn:add-english-word-simple' %}">ADD ENGLISH WORD</a></th>
+            <th class="menu"><a class="menu" href="{% url 'wordslearn:add-polish-word' %}">ADD POLISH WORDS</a></th>
+        </tr>
+    </table>
 {% endblock %}
 
 {% block content %}<!-- default content text (typically empty) -->{% endblock %}
