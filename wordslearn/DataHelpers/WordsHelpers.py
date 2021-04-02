@@ -23,12 +23,16 @@ def getLatestWord(numOfWords=5):
 
 def getWordFromDb(word=None, languague = LanguageChoice.EN, type = None):
 
-    print("Check word in db word: {} type: {}".format(word, type))
+    print("Check word {} in db word: {} type: {}".format(languague, word, type))
     if languague == LanguageChoice.EN:
-        # w = WordEng.objects.get(word=word)
         try:
-            #TODO filter by type
             w = WordEng.objects.get(word__exact=word, word_type=type)
+        except ObjectDoesNotExist:
+            return None
+        return w
+    elif languague == LanguageChoice.PL:
+        try:
+            w = WordPol.objects.get(word__exact=word, word_type__exact=type)
         except ObjectDoesNotExist:
             return None
         return w

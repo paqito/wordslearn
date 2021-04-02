@@ -1,11 +1,11 @@
 ENG_WORD_TYPES = [
-        ('noun', 'Noun'),
-        ('verb', 'Verb'),
-        ('adjective', 'Adjective'),
-        ('adverb', 'Adverb'),
-        ('preposition', 'Preposition'),
-        ('Conjunctions', 'Conjunctions'),
-        ('other', 'Other')]
+    ('noun', 'Noun'),
+    ('verb', 'Verb'),
+    ('adjective', 'Adjective'),
+    ('adverb', 'Adverb'),
+    ('preposition', 'Preposition'),
+    ('Conjunctions', 'Conjunctions'),
+    ('other', 'Other')]
 
 POL_WORD_TYPES = [
     ('Noun', 'rzeczownik'),
@@ -24,6 +24,6 @@ wordType_conversion = {
         'adjective': 'Adjective',
         'adverb': 'Adverb',
         'preposition': 'Preposition',
-        'Conjunctions': 'Conjunctions',
+        'conjunctions': 'Conjunctions',
         'other': 'Other'
 }

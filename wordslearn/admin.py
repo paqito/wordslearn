@@ -5,10 +5,10 @@ from .models import WordPol
 
 
 class WordEngAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'word', 'word_type', 'display_polword', 'date_of_add', 'definition', 'synonym', 'antonym')
+    list_display = ('pk', 'word', 'display_word_type', 'display_polword', 'date_of_add', 'definition', 'synonym', 'antonym')
 
 class WordPolAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'word', 'word_type', 'display_engword', 'date_of_add', 'definition', 'synonym', 'antonym')
+    list_display = ('pk', 'word', 'display_word_type', 'display_engword', 'date_of_add', 'definition', 'synonym', 'antonym')
 
 # Register your models here.
 admin.site.register(WordEng, WordEngAdmin)

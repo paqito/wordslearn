@@ -6,7 +6,7 @@
 WordEng.objects.all().delete()
 WordPol.objects.all().delete()
 
-Coment This:
+Comment This:
 views.py
 # words_in_database = WordsHelpers.getNumberOfWords()
 # words_add_last_week = WordsHelpers.getNumberOfWords(7)

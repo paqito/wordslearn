@@ -7,25 +7,6 @@ class LanguageChoice(Enum):
     EN = "English"
     PL = "Polish"
 
-# def create_eng_word(form):
-#
-#     word_instance = WordEng()
-#
-#     word_instance.word = form.cleaned_data['word']
-#     synonym = form.cleaned_data['synonym']
-#     polish_word = form.cleaned_data['polish_word']
-#     antonym = form.cleaned_data['antonym']
-#     definition = form.cleaned_data['definition']
-#     word_instance.word_type = form.cleaned_data['word_type']
-#
-#     word_instance.word
-#     word_instance.word_type
-#     word_instance.
-#
-#     word_instance.save()
-#
-#     return word_instance
-
 
 def create_eng_word(**kwarg):
     '''
@@ -47,10 +28,10 @@ def create_eng_word(**kwarg):
     print("translated_type {} {}".format(translated_type, translated_type.lower()))
     word_instance.word_type = wordDefinitions.wordType_conversion.get(translated_type.lower(), 'Other')
     print(word_instance.word_type)
-    print(word_instance.definition)
-
 
     word_instance.save()
+
+    print(str(word_instance))
 
     return word_instance
 
@@ -63,18 +44,17 @@ def create_pol_word(**kwarg):
     word_instance = WordPol()
 
     word_instance.word = kwarg['word']
-    word_instance.definition = kwarg['definition']
-    # word_instance.synonym = kwarg['synonym']
+    word_instance.definition = kwarg.get('definition', 'None')
+    word_instance.synonym = kwarg.get('synonym', 'None')
+    word_instance.antonym = kwarg.get('antonym', 'None')
     # word_instance.antonym = kwarg['antonym']
 
-    translated_type = kwarg['type']
+    translated_type = kwarg.get('type', 'Other')
     print("translated_type {}".format(translated_type))
-    if wordDefinitions.wordType_conversion.get(translated_type.lower):
-        word_instance.word_type = wordDefinitions.wordType_conversion.get(translated_type.lower)
-    else:
-        word_instance.word_type = 'Other'
-
+    word_instance.word_type = wordDefinitions.wordType_conversion.get(translated_type.lower(), 'Other')
     word_instance.save()
+
+    print(str(word_instance))
 
     return word_instance
 
@@ -93,7 +73,7 @@ class Word(models.Model):
         ordering = ["word"]
 
     def __str__(self):
-        string_representation = "{} {} {} ".format(self.word, self.date_of_add, self.definition)
+        string_representation = "{} {} {} {} ".format(self.id, self.word, self.date_of_add, self.definition)
         return string_representation
 
     def display_translations(self):
@@ -105,6 +85,10 @@ class WordEng(Word):
 
     def __str__(self):
         return "English Word: " + self.word + " " + self.word_type
+
+    def display_word_type(self):
+        """Create a string for the translation. This is required to display word_type in Admin."""
+        return '{}'.format(self.word_type)
 
     def display_polword(self):
         """Create a string for the translation. This is required to display WordEng in Admin."""
@@ -120,10 +104,11 @@ class WordEng(Word):
         string_representation = super(WordEng, self).__str__() + " {} ".format(self.word_type)
         return string_representation
 
+    #TODO next by date
     def Next(self):
         try:
             # return WordEng.objects.get(pk=self.pk+1)
-            next_issue = WordEng.objects.filter(pk__gt=self.pk).order_by('pk').first()
+            next_issue = WordEng.objects.filter(date_of_add__gt=self.date_of_add).order_by('date_of_add').first()
             return next_issue
         except:
             return None
@@ -131,23 +116,20 @@ class WordEng(Word):
     def Previous(self):
         try:
             # return WordEng.objects.get(pk=self.pk-1)
-            prev_issue = WordEng.objects.filter(pk__lt=self.pk).order_by('pk').first()
+            prev_issue = WordEng.objects.filter(date_of_add__lt=self.date_of_add).order_by('date_of_add').first()
             return prev_issue
         except:
             return None
-
-    # def add_polish_word(self, pol_word):
-    #     if pol_word not in self.wordpol_set.all():
-    #         #create polish word
-    #         newWord = WordPol(word=pol_word)
-    #     else:
-    #         #get exisitng word
 
 
 class WordPol(Word):
 
     wordsEng = models.ManyToManyField(WordEng)
     word_type = models.CharField(max_length=30, choices=wordDefinitions.POL_WORD_TYPES, help_text='Select type of word', blank=True)
+
+    def display_word_type(self):
+        """Create a string for the translation. This is required to display word_type in Admin."""
+        return '{}'.format(self.word_type)
 
     def display_engword(self):
         """Create a string for the translation. This is required to display WordEng in Admin."""

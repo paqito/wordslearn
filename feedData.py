@@ -1,7 +1,12 @@
 from wordslearn.models import WordEng
 from wordslearn.models import WordPol
 
-from wordsData import processFile
+# from wordsData import processFile
+from utilities import processfile_utility
+from utilities import translate_utility
+from wordslearn.DataHelpers import WordsHelpers
+from wordslearn.models import WordEng, WordPol, create_eng_word, create_pol_word, LanguageChoice
+
 # from googletrans import Translator
 from PyDictionary import PyDictionary
 
@@ -15,6 +20,65 @@ def readFile(fileName):
 def testData():
     entry = WordEng.objects.get(pk=1)
     print(entry)
+
+def addWorldToDb(engWord, polWord):
+    word = engWord
+    print("[feedData.py] addWorldToDb engWord {} polWord {}".format(engWord, polWord))
+
+    # check if word to translate already exists in db
+    # try to translate word, returns list of WordDetail
+    # translations - list of WordDetails
+    translations = translate_utility.translate_words(word)
+    print("[feedData.py] translations number {}: {}".format(len(translations), (translations)))
+
+    # if any(w.translation !="" for w in translations):
+    if any(w.word != "" for w in translations):
+        for word_details in translations:
+            print("[feedData.py] word_details {}".format(word_details))
+            if word_details.word != "":
+                '''
+                class WordDetail:
+                    word = ""
+                    synonym = ""
+                    antonym = ""
+                    type = ""
+                    translation = ""
+                    definition = ""
+                '''
+                # converting wordDetails into Word Model
+                kwarg = {"word": word_details.word, "synonym": word_details.synonym,
+                         "antonym": word_details.antonym,
+                         "definition": word_details.definition, "translation": word_details.translation,
+                         "type": word_details.type}
+                print(str(kwarg))
+                # check if word to translate already exists in db
+                word_instance = WordsHelpers.getWordFromDb(word, LanguageChoice.EN, word_details.type)
+                if word_instance is None:
+                    word_instance = create_eng_word(**kwarg)
+
+                # if translation is missing
+                if word_details.translation == '' and polWord != None:
+                    word_details.translation = polWord
+
+                # check if polish_word already exists
+                existing_polish_word = WordsHelpers.getWordFromDb(word_details.translation, LanguageChoice.PL,
+                                                                  word_details.type)
+                if existing_polish_word:
+                    # exists
+                    for word in existing_polish_word:
+                        # add m2m relation
+                        word_instance.wordpol_set.add(word)
+                        word_instance.save()
+
+                else:
+                    # must add polish word
+                    if word_details.translation:
+                        kwarg = {"word": word_details.translation, "type": word_details.type}
+                        polish_word_instance = create_pol_word(**kwarg)
+                        polish_word_instance.wordsEng.add(word_instance)
+                        polish_word_instance.save()
+
+    print("[feedData.py] Word Added")
 
 # add pair of words
 def addWordToDatabase(engWord, polWord):
@@ -136,8 +200,16 @@ print("Remove previous data")
 WordEng.objects.all().delete()
 WordPol.objects.all().delete()
 
-print("Running feedData script")
-feed()
+file = "D:\Programming\DjangoProjects\Words\words\wordsData\wordsEnglish.txt"
+files_dict = processfile_utility.readFileContent(file)
+print("files read number: {}".format(len(files_dict)))
+print("{}".format(files_dict))
+
+# feed()
+for eng, pol in files_dict.items():
+    addWorldToDb(eng, pol)
+
+# addWorldToDb("constraint", "przymus")
 
 if __name__ == "__main__":
     main()

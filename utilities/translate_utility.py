@@ -78,7 +78,7 @@ def translate_words(word_eng, word_pol = ""):
     return list_of_words
 
 def translate_words_pydictionary(word_eng, word_pol = ""):
-    print("Translation by pydictionary")
+    print("Translation by pydictionary {}".format(word_eng))
     pydictionary = PyDictionary()
 
     list_of_words = []
@@ -100,10 +100,10 @@ def translate_words_pydictionary(word_eng, word_pol = ""):
             print("Warning no translation found")
         translation = word_pol
 
-    print("translate_words_pydictionary wEng: {} translation: {}".format(word_eng, translation))
+    # print("translate_words_pydictionary wEng: {} translation: {}".format(word_eng, translation))
     meanings = pydictionary.meaning(word_eng)
     for key, value in meanings.items():
-        print("key {}  value {}".format(key, value))
+        # print("key {}  value {}".format(key, value))
         word = WordDetail(word=word_eng, translation=translation, synonym=synonym, antonym=antonym, type=key, definition=value)
         list_of_words.append(word)
 
