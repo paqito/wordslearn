@@ -11,6 +11,11 @@ virtualenv env
 Activate virtual env:
 env\Scripts\activate
 
+
+Create Django Project:
+django-admin startproject project
+
+
 python -m django -V
 
 python help(‘modules’)
