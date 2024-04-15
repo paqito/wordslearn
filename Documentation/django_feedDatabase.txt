@@ -32,5 +32,7 @@ Run python manage.py migrate
 python manage.py shell
 exec(open('feedData.py').read())
 
+exec(open('feedDb.py').read())
+
 # create super user
 python manage.py createsuperuser

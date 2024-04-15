@@ -41,7 +41,6 @@ class ProcessFile():
 class ProcessFileTxt(ProcessFile):
 
     def process_file(self):
-        print("ProcessFileTxt")
         content_dictionary = {}
         print("readFileContent {}".format(self.fileName))
 
@@ -52,12 +51,19 @@ class ProcessFileTxt(ProcessFile):
                 words = line.split()
 
                 if len(words) > 2:
-                    print("Warning line contains more than 2 words: {}".format(words))
+                    print("Warning line contains more than 2 words skipping: {}".format(words))
                     separator = " "
-                    content_dictionary[words[0]] = separator.join(words[1:])
+                    #content_dictionary[words[0]] = separator.join(words[1:])
                     continue
                 elif len(words) == 2:
+                    # world and its translation
                     content_dictionary[words[0]] = words[1]
+                elif len(words) == 1:
+                    # world without translation
+                    content_dictionary[words[0]] = ""
+                elif len(words) == 0:
+                    continue
+                    #print("Warning empty line")
                 else:
                     print("Warning incorrect line content: {}".format(words))
 
@@ -82,11 +88,12 @@ def readFileContent(filename):
 
 
 def main():
-    file = "D:\Programming\DjangoProjects\Words\words\wordsData\wordsEnglish.txt"
+    #file = "D:\Programming\DjangoProjects\Words\words\wordsData\wordsEnglish.txt"
+    file = r"D:\Programming\DjangoProjects\Words\words\wordsData\test_words.txt"
     # wordReader = ProcessFileFactory.factory(file)
     # words = wordReader.process_file()
     words = readFileContent(file)
-    print("Result word")
+    print("Result words:")
     print(words)
 
 

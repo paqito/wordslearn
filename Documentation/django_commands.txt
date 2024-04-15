@@ -43,6 +43,14 @@ Run python manage.py makemigrations
 #to apply those changes to the database.
 Run python manage.py migrate 
 
+Admin:
+# check superuser details
+from django.contrib.auth import get_user_model
+list(get_user_model().objects.filter(is_superuser=True).values_list('username', flat=True))
+
+
+python manage.py changepassword <user_name>
+
 
 Deleting Database:
 

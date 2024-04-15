@@ -1,0 +1,15 @@
+{
+    "antonym": "anotnim_test",
+    "synonym": "synonim_test",
+    "translation": "jab\u0142ko",
+    "type_to_meaning": {
+        "type_test_1": [
+            "owoc 1",
+            "owoc 1 inny"
+        ],
+        "type_test_2": [
+            "owoc 2"
+        ]
+    },
+    "word": "apple"
+}
